@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler", "RemObjects.Profiler.oxygene", "{A214B983-8B12-424B-A2D0-F39AAC624FC4}"
+EndProject
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "ProcessData", "..\ProcessData\ProcessData.oxygene", "{69CEB453-FBBD-426F-AF7A-6A8C714E9437}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Debug|Mixed Platforms.Build.0 = Debug
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|Mixed Platforms.ActiveCfg = Release
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|Mixed Platforms.Build.0 = Release
+		{69CEB453-FBBD-426F-AF7A-6A8C714E9437}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{69CEB453-FBBD-426F-AF7A-6A8C714E9437}.Debug|Mixed Platforms.Build.0 = Debug
+		{69CEB453-FBBD-426F-AF7A-6A8C714E9437}.Release|Mixed Platforms.ActiveCfg = Release
+		{69CEB453-FBBD-426F-AF7A-6A8C714E9437}.Release|Mixed Platforms.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
