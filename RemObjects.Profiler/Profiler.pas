@@ -11,6 +11,7 @@ type
   private
     class constructor ;
     class var fFW: StreamWriter;
+    class var fFN: String;
     var fThreads: Dictionary<Integer, ThreadInfo> := new Dictionary<Int32,ThreadInfo>;
 
     class method WriteData;
@@ -44,6 +45,10 @@ type
     property Name: String;
     property TotalTicks: Int64;
     property SelfTicks: Int64;
+    property MinTotalTicks: Int64 := Int64.MaxValue;
+    property MinSelfTicks: Int64 := Int64.MaxValue;
+    property MaxTotalTicks: Int64;
+    property MaxSelfTicks: Int64;
     property SubCalls: Dictionary<SITuple, SubCall> := new Dictionary<SITuple,SubCall>;
   end;
   SubCall=  class
@@ -52,6 +57,10 @@ type
     property Count: Int64;
     property TotalTicks: Int64;
     property SelfTicks: Int64;
+    property MinTotalTicks: Int64 := Int64.MaxValue;
+    property MinSelfTicks: Int64 := Int64.MaxValue;
+    property MaxTotalTicks: Int64;
+    property MaxSelfTicks: Int64;
   end;
     FrameInfo = class
   public  private
@@ -69,8 +78,8 @@ begin
   AppDomain.CurrentDomain.ProcessExit += AppDomainCurrentDomainProcessExit;
   System.Diagnostics.Stopwatch.GetTimestamp; // preload that
   
-  var lFN := &System.Reflection.Assembly.GetEntryAssembly().Location+'.results-'+DateTime.Now.ToString('yyyy-MM-ddHH-mm-ss')+'.log';
-  fFW := new StreamWriter(File.Create(lFN), System.Text.Encoding.UTF8);
+  fFN := &System.Reflection.Assembly.GetEntryAssembly().Location+'.results-'+DateTime.Now.ToString('yyyy-MM-ddHH-mm-ss')+'.log';
+  fFW := new StreamWriter(File.Create(fFN), System.Text.Encoding.UTF8);
   fFW.WriteLine('');
 end;
 
@@ -119,9 +128,13 @@ begin
   lMI.Count := lMI.Count + 1;
   var lSelfTime := lTime - lLastE.SubCallTime;
   lMI.TotalTicks := lMI.TotalTicks + lTime;
+  lMI.MinTotalTicks := Math.Min(lMI.MinTotalTicks, lTime);
+  lMI.MaxTotalTicks := Math.Max(lMI.MaxTotalTicks, lTime);
   lMI.SelfTicks := lMI.SelfTicks + lSelfTime;
+  lMI.MinSelfTicks := Math.Min(lMI.MinSelfTicks, lSelfTime);
+  lMI.MaxSelfTicks := Math.Max(lMI.MaxSelfTicks, lSelfTime);
   lLastE := lLastE.Prev;
-  for i: Integer := SubCallCount downto 1 do begin
+  for i: Integer := 1 to SubCallCount do begin
     if lLastE = nil then break;
     var tp := new SITuple(aName, i);
     var lCA := lTI.Methods[lLastE.Method];
@@ -134,6 +147,11 @@ begin
     sc.Count := sc.Count + 1;
     sc.SelfTicks := sc.SelfTicks + lSelfTime;
     sc.TotalTicks := sc.TotalTicks + lTime;
+    sc.MinTotalTicks := Math.Min(sc.MinTotalTicks, lTime);
+    sc.MaxTotalTicks := Math.Max(sc.MaxTotalTicks, lTime);
+    sc.MinSelfTicks := Math.Min(sc.MinSelfTicks, lSelfTime);
+    sc.MaxSelfTicks := Math.Max(sc.MaxSelfTicks, lSelfTime);
+
     lLastE := lLastE.Prev;
   end;
 
@@ -150,21 +168,19 @@ end;
 
 class method RemObjectsProfiler.WriteData;
 begin
-  fFW.WriteLine('create table methods (id integer primary key, thread integer, count integer, name text, totalticks integer, selfticks integer);');
-  fFW.WriteLine('create table subcalls (fromid integer, toid integer, level integer, count integer, totalticks integer, selfticks integer);');
+  fFW.WriteLine('create table methods (id integer primary key, thread integer, count integer, name text, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
+  fFW.WriteLine('create table subcalls (fromid integer, toid integer, level integer, count integer, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
   for each el in fThreads do begin 
     var lThread := el.Key;
     for each m in el.Value.Methods.Values  do begin 
-      fFW.WriteLine('insert into methods values ({0}, {1}, {2}, ''{3}'', {4}, {5});', m.PK, lThread, m.Count, m.Name, m.TotalTicks, m.SelfTicks);
+      fFW.WriteLine('insert into methods values ({0}, {1}, {2}, ''{3}'', {4}, {5}, {6},{7},{8},{9});', m.PK, lThread, m.Count, m.Name, m.TotalTicks, m.SelfTicks, m.MinTotalTicks, m.MaxTotalTicks, m.MinSelfTicks, m.MaxSelfTicks);
       for each n in m.SubCalls do begin 
-        fFW.WriteLine('insert into subcalls values ({0}, {1}, {2}, {3}, {4}, {5});', m.PK, n.Value.Method.PK, n.Key.Int, n.Value.Count, n.Value.TotalTicks, n.Value.SelfTicks);
+        fFW.WriteLine('insert into subcalls values ({0}, {1}, {2}, {3}, {4}, {5}, {6},{7},{8},{9});', m.PK, n.Value.Method.PK, n.Key.Int, n.Value.Count, n.Value.TotalTicks, n.Value.SelfTicks, n.Value.MinTotalTicks, n.Value.MaxTotalTicks, n.Value.MinSelfTicks, n.Value.MaxSelfTicks);
       end;
     end;
-    // METHOD: Byte(0) Int32(PK) Int32(Thread) Int64(Count) String(Name) Int64(TotalTicks) Int64(SelfTicks)
-    // SUBCALL Byte(1) Int32(From) Int32(Level) Int32(ToPK) Int64(Count) Int64(TotalTicks) Int64(SelfTicks)
   end;
   fFW.Close;
-  writeLn('Written profile data!');
+  writeLn('Written profile data to '+fFN);
 end;
 
 constructor SITuple(aKey: String; aInt: Integer);
