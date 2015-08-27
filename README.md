@@ -7,7 +7,7 @@ How it works:
 The profiling aspect adds pre/post conditions to every method that it's marked with. When the application finishes it writes a .log file next to the executable. This log file contains SQL statements to build a database with the profiling information. This can be loaded into for example SQLite, or in the ResultsViewer application. This code depends on the [Elements compiler](http://elementscompiler.com) to work.
 
 ## Using the profiler aspect
-Compiler the SLN with any recent Elements install, reference both RemObjects.Profiler.dll and RemObjects.Profiler.Aspect.dll from your project and apply the aspect to the classes or methods you want to profile: 
+Compile the SLN with any recent Elements install, reference both RemObjects.Profiler.dll and RemObjects.Profiler.Aspect.dll from your project and apply the aspect to the classes or methods you want to profile: 
 
 * Oxygene: \[RemObjects.Profiler.Profile\]
 * C#: \[RemObjects.Profiler.Profile\]
