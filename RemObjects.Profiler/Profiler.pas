@@ -68,6 +68,7 @@ type
     property Prev: FrameInfo;
     property &Method: String;
     property StartTime: Int64;
+    property SubtractFromTotal: Int64;
     property SubCallTime: Int64;
   end;
 
@@ -127,12 +128,20 @@ begin
   var lMI := lTI.Methods[aName];
   lMI.Count := lMI.Count + 1;
   var lSelfTime := lTime - lLastE.SubCallTime;
-  lMI.TotalTicks := lMI.TotalTicks + lTime;
+  lMI.TotalTicks := lMI.TotalTicks + lTime - lLastE.SubtractFromTotal;
+  var lWorkLastE := lLastE.Prev;
+  while lWorkLastE <> nil do begin
+    if lWorkLastE.Method = aName then begin
+      lWorkLastE.SubtractFromTotal := lWorkLastE.SubtractFromTotal + lTime - lLastE.SubtractFromTotal;
+    end;
+    lWorkLastE := lWorkLastE.Prev;
+  end;
   lMI.MinTotalTicks := Math.Min(lMI.MinTotalTicks, lTime);
   lMI.MaxTotalTicks := Math.Max(lMI.MaxTotalTicks, lTime);
   lMI.SelfTicks := lMI.SelfTicks + lSelfTime;
   lMI.MinSelfTicks := Math.Min(lMI.MinSelfTicks, lSelfTime);
   lMI.MaxSelfTicks := Math.Max(lMI.MaxSelfTicks, lSelfTime);
+
   lLastE := lLastE.Prev;
   for i: Integer := 1 to SubCallCount do begin
     if lLastE = nil then break;
@@ -146,7 +155,7 @@ begin
     end;
     sc.Count := sc.Count + 1;
     sc.SelfTicks := sc.SelfTicks + lSelfTime;
-    sc.TotalTicks := sc.TotalTicks + lTime;
+    sc.TotalTicks := sc.TotalTicks + lTime - lLastE.SubtractFromTotal;
     sc.MinTotalTicks := Math.Min(sc.MinTotalTicks, lTime);
     sc.MaxTotalTicks := Math.Max(sc.MaxTotalTicks, lTime);
     sc.MinSelfTicks := Math.Min(sc.MinSelfTicks, lSelfTime);
