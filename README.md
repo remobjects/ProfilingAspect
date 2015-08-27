@@ -21,7 +21,7 @@ Run the application, make sure to completion, then use the ResultsViewer applica
 
 ![Profiler Screenshot](Profiler.png)
 
-The results viewer is a simple program that loads & views the result of a profile session. The top list view contains the results. **Thread** the managed thread id of the thread that ran the code, **Count** the nubmer of times that method got called. **Total Ticks** is the time spent in these methods (shown as ticks and a % of the total time). **Ticks without children** shows how much time is actually spent in this method itself, ie excluding the calls it does, note that the exclusion only counts other calls also profiled.
+The results viewer is a simple program that loads & views the result of a profile session. The top list view contains the results. **Thread** the managed thread id of the thread that ran the code, **Count** the number of times that method got called. **Total Ticks** is the time spent in these methods (shown as ticks and a % of the total time). **Ticks without children** shows how much time is actually spent in this method itself, ie excluding the calls it does, note that the exclusion only counts other calls also profiled.
 
 
 The bottom view gets updated depending on the selected call. It shows who called this item and what it called. Positive level are calls that this function made, where level 1 is the method that gets directly called, level 2 is the method that gets called by a level 1 method. Negative levels show who called this method where -1 is a direct caller.
