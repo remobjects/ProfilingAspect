@@ -44,7 +44,7 @@
             <ComboBox Grid.Column="6" x:Name="cbThread" Width="200" SelectionChanged="cbThread_SelectionChanged"/>
         </Grid>
 
-        <ListView Grid.Row="2" x:Name="lvData" ItemsSource="{Binding Path=CurrentData}">
+        <ListView Grid.Row="2" x:Name="lvData" ItemsSource="{Binding Path=CurrentData}" SelectionChanged="lvData_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
@@ -63,8 +63,31 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0">_Callers/Callees:</Label>
-            <TreeView Grid.Row="1" x:Name="tvData"></TreeView>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    
+                </Grid.ColumnDefinitions>
+            <Label Grid.Column="0">_Callers/Callees:</Label>
+                <ComboBox Grid.Column="2" x:Name="cbSubOrder" Width="200" SelectedIndex="0" SelectionChanged="cbSubOrder_SelectionChanged">
+                    <ComboBoxItem>Level, Count</ComboBoxItem>
+                    <ComboBoxItem>Level Total Ticks</ComboBoxItem>
+                    <ComboBoxItem>Level, Ticks without Children</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+            <ListView Grid.Row="2" x:Name="lvCallers" ItemsSource="{Binding Path=SubData}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Name" Width="360" DisplayMemberBinding="{Binding Path=name}"/>
+                            <GridViewColumn Header="Level" Width="100" DisplayMemberBinding="{Binding Path=level}"/>
+                            <GridViewColumn Header="Count" Width="130" DisplayMemberBinding="{Binding Path=count}"/>
+                            <GridViewColumn Header="Total Ticks"  Width="130" DisplayMemberBinding="{Binding Path=totalticksdisplay}"/>
+                            <GridViewColumn Header="Ticks without children" Width="130" DisplayMemberBinding="{Binding Path=selfticksdisplay}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </Grid>
 </Window>

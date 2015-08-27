@@ -16,9 +16,12 @@ uses
 type
   MainWindow = public partial class(System.Windows.Window)
   private
+    method RefreshSub;
+    method lvData_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
     method cbThread_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
     method cbFilter_TextChanged(sender: System.Object; e: System.Windows.Controls.TextChangedEventArgs);
     method cbOrder_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
+    method cbSubOrder_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
     fData: Data;
   private
     method FileExit_Click(sender: System.Object; e: System.Windows.RoutedEventArgs);
@@ -27,6 +30,7 @@ type
     method Refresh;
   public
     property CurrentData: List<Methods>; notify;
+    property SubData: List<SubCalls>; notify;
     constructor;
   end;
   
@@ -51,6 +55,7 @@ begin
     try
       fData := new Data(lFiledlg.FileName);
       cbFilter.Text := '';
+      SubData := nil;
       cbOrder.SelectedIndex := 0;
       cbThread.Items.Clear;
       cbThread.Items.Add('All Threads');
@@ -79,7 +84,7 @@ begin
     exit;
   end;
   CurrentData := fData.GetData(DataOrder(cbOrder.SelectedIndex), cbFilter.Text, 
-    if cbThread.SelectedIndex = 0 then nil else Int32.Parse(cbThread.SelectedValue:ToString));
+    if cbThread.SelectedIndex <= 0 then nil else Int32.Parse(cbThread.SelectedValue:ToString));
 end;
 
 method MainWindow.cbOrder_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
@@ -95,6 +100,24 @@ end;
 method MainWindow.cbThread_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
 begin
   Refresh;
+end;
+
+method MainWindow.lvData_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
+begin
+  RefreshSub;
+end;
+
+method MainWindow.RefreshSub;
+begin
+  if lvData.SelectedItem = nil then
+    SubData := nil
+  else
+    SubData := fData:GetSubCalls(Methods(lvData.SelectedItem).id, SubOrder(cbSubOrder.SelectedIndex));
+end;
+
+method MainWindow.cbSubOrder_SelectionChanged(sender: Object; e: SelectionChangedEventArgs);
+begin
+  RefreshSub
 end;
   
 end.
