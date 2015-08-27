@@ -6,7 +6,7 @@ using RemObjects.Profiler;
 
 namespace Test
 {
-	[__aspect: Profile]
+	[Profile]
 	static class Program
 	{
 		public static Int32 Main(string[] args)
