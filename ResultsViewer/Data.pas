@@ -32,8 +32,10 @@ type
     fOwner: Data;
   public
     constructor(aOwner: Data);
-    property totalticksdisplay: String read (totalticks* 1.0 / fOwner.MaxTicks).ToString("0.##%")+ ' '+totalticks.ToString();
-    property selfticksdisplay: String read (selfticks* 1.0/ fOwner.MaxTicks).ToString("0.##%")+ ' '+selfticks.ToString();
+    property totalticksdisplay1: String read (totalticks* 1.0 / fOwner.MaxTicks).ToString("0.##%");
+    property totalticksdisplay2: String read totalticks.ToString();
+    property selfticksdisplay1: String read (selfticks* 1.0/ fOwner.MaxTicks).ToString("0.##%");
+    property selfticksdisplay2: String read selfticks.ToString();
     property id: Int64;
     property thread: Integer;
     property count: Int64;
@@ -51,8 +53,10 @@ type
   public
     constructor(aOwner: Data);
     method CloneNegative: SubCalls;
-    property totalticksdisplay: String read (totalticks* 1.0 / fOwner.MaxTicks).ToString("0.##%")+ ' '+totalticks.ToString();
-    property selfticksdisplay: String read (selfticks* 1.0/ fOwner.MaxTicks).ToString("0.##%")+ ' '+selfticks.ToString();
+    property totalticksdisplay1: String read (totalticks* 1.0 / fOwner.MaxTicks).ToString("0.##%");
+    property totalticksdisplay2: String read totalticks.ToString();
+    property selfticksdisplay1: String read (selfticks* 1.0/ fOwner.MaxTicks).ToString("0.##%");
+    property selfticksdisplay2: String read selfticks.ToString();
     property name: String read 
       (if level < 0 then 'From: ' else 'To: ')+
       fOwner.DataDict[toid].name;
