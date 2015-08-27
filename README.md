@@ -13,6 +13,7 @@ Compiler the SLN with any recent Elements install, reference both RemObjects.Pro
 * C#: \[RemObjects.Profiler.Profile\]
 * Swift: @RemObjects.Profiler.Profile
 
+On the project level, set the **PROFILE** define to make sure the profiler works, undefine this to remove any trace of the profiling code, while leaving in the aspects if needed.
 
 Run the application, make sure to completion, then use the ResultsViewer application to view the results.
 

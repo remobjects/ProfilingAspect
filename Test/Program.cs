@@ -6,7 +6,7 @@ using RemObjects.Profiler;
 
 namespace Test
 {
-	[Profile]
+	[RemObjects.Profiler.Profile]
 	static class Program
 	{
 		public static Int32 Main(string[] args)
