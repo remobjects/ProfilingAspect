@@ -2,23 +2,18 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProductVersion>3.5</ProductVersion>
-    <RootNamespace>RemObjects.Profiler</RootNamespace>
-    <ProjectGuid>{a214b983-8b12-424b-a2d0-f39aac624fc4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AssemblyName>RemObjects.Profiler</AssemblyName>
+    <RootNamespace>RemObjects.Profiler.Aspect</RootNamespace>
+    <ProjectGuid>{0866c22b-00bd-425e-b47e-ad13f5cf5d2f}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AssemblyName>RemObjects.Profiler.Aspect</AssemblyName>
     <AllowGlobals>False</AllowGlobals>
     <AllowLegacyWith>False</AllowLegacyWith>
     <AllowLegacyOutParams>False</AllowLegacyOutParams>
     <AllowLegacyCreate>False</AllowLegacyCreate>
     <AllowUnsafeCode>False</AllowUnsafeCode>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <Name>RemObjects.Profiler</Name>
-    <DefaultUses />
-    <StartupClass />
-    <InternalAssemblyName />
-    <ApplicationIcon />
-    <TargetFrameworkProfile />
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Name>RemObjects.Profiler.Aspect</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -60,9 +55,18 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Profiler.pas" />
+    <Compile Include="ProfileAspect.pas" />
     <Compile Include="Properties\AssemblyInfo.pas" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
