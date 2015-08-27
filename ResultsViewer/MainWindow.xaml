@@ -1,0 +1,70 @@
+﻿
+<Window x:Class="ResultsViewer.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        Title="Profiling Results Viewer" Height="600" Width="900">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Click="FileOpen_Click"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="E_xit" Click="FileExit_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About"  Click="HelpAbout_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0">_Results:</Label>
+            <Label Grid.Column="1">_Order:</Label>
+            <ComboBox Grid.Column="2" x:Name="cbOrder" Width="200" SelectedIndex="0" SelectionChanged="cbOrder_SelectionChanged">
+                <ComboBoxItem>Total Ticks</ComboBoxItem>
+                <ComboBoxItem>Ticks without children</ComboBoxItem>
+                <ComboBoxItem>Count</ComboBoxItem>
+                <ComboBoxItem>Name</ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="3">_Filter:</Label>
+            <TextBox Grid.Column="4" x:Name="cbFilter" Width="200" Margin="2" TextChanged="cbFilter_TextChanged"/>
+            <Label Grid.Column="5">_Thread:</Label>
+            <ComboBox Grid.Column="6" x:Name="cbThread" Width="200" SelectionChanged="cbThread_SelectionChanged"/>
+        </Grid>
+
+        <ListView Grid.Row="2" x:Name="lvData" ItemsSource="{Binding Path=CurrentData}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Name" Width="360" DisplayMemberBinding="{Binding Path=name}"/>
+                        <GridViewColumn Header="Thread" Width="100" DisplayMemberBinding="{Binding Path=thread}"/>
+                        <GridViewColumn Header="Count" Width="130" DisplayMemberBinding="{Binding Path=count}"/>
+                        <GridViewColumn Header="Total Ticks"  Width="130" DisplayMemberBinding="{Binding Path=totalticksdisplay}"/>
+                        <GridViewColumn Header="Ticks without children" Width="130" DisplayMemberBinding="{Binding Path=selfticksdisplay}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <GridSplitter Grid.Row="3" Height="5" HorizontalAlignment="Stretch" />
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0">_Callers/Callees:</Label>
+            <TreeView Grid.Row="1" x:Name="tvData"></TreeView>
+        </Grid>
+    </Grid>
+</Window>
