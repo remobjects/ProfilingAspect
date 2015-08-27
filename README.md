@@ -29,4 +29,5 @@ The bottom view gets updated depending on the selected call. It shows who called
 ## Notes
 
 * The profiler affects the code generated and makes it slower, also disabling inlining in most cases, the times should be seen compared to other methods, not as the absolute time a method takes.
- 
+* Mono and .NET can give vastly different results, if both are targetted it might be worth running the profiling on both.
+* Instrumental profiling works best applies to only parts of the program, the parts that are of interest so to keep the list clear and clean and the overhead to a minimum; Property getter/setters are already ignored by the profiling aspect.
