@@ -17,16 +17,13 @@
     <Name>Test</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <Optimize>false</Optimize>
-    <OutputPath>.\bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;</DefineConstants>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;PROFILE</DefineConstants>
     <GeneratePDB>True</GeneratePDB>
     <GenerateMDB>True</GenerateMDB>
-    <EnableAsserts>True</EnableAsserts>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <CaptureConsoleOutput>False</CaptureConsoleOutput>
     <StartMode>Project</StartMode>
-    <RegisterForComInterop>False</RegisterForComInterop>
     <CpuType>anycpu</CpuType>
     <RuntimeVersion>v25</RuntimeVersion>
     <XmlDoc>False</XmlDoc>
@@ -35,21 +32,17 @@
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <Optimize>true</Optimize>
-    <OutputPath>.\bin\Release</OutputPath>
-    <GeneratePDB>False</GeneratePDB>
-    <GenerateMDB>False</GenerateMDB>
+    <OutputPath>bin\Release\</OutputPath>
     <EnableAsserts>False</EnableAsserts>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <CaptureConsoleOutput>False</CaptureConsoleOutput>
     <StartMode>Project</StartMode>
-    <RegisterForComInterop>False</RegisterForComInterop>
     <CpuType>anycpu</CpuType>
     <RuntimeVersion>v25</RuntimeVersion>
     <XmlDoc>False</XmlDoc>
     <XmlDocWarningLevel>WarningOnPublicMembers</XmlDocWarningLevel>
     <EnableUnmanagedDebugging>False</EnableUnmanagedDebugging>
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
+    <DefineConstants>PROFILE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

@@ -7,13 +7,14 @@ uses
 type
   [AttributeUsage(AttributeTargets.Class or AttributeTargets.Method)]
   ProfileAspect = public class(IMethodImplementationDecorator)
+    class var fShownWarning: Boolean;
   public
-    method HandleImplementation(Services: IServices; aMethod: IMethodDefinition);
+    method HandleImplementation(aServices: IServices; aMethod: IMethodDefinition);
   end;
   
 implementation
 
-method ProfileAspect.HandleImplementation(Services: IServices; aMethod: IMethodDefinition);
+method ProfileAspect.HandleImplementation(aServices: IServices; aMethod: IMethodDefinition);
 begin
   if aMethod.Virtual = VirtualMode.Abstract then exit;
   if aMethod.Empty then exit;
@@ -22,7 +23,15 @@ begin
   if aMethod.Name.StartsWith("set_") then exit;
   if aMethod.Name.StartsWith("add_") then exit;
   if aMethod.Name.StartsWith("remove_") then exit;
-  var lType := Services.GetType('RemObjects.Profiler.RemObjectsProfiler');
+  if not aServices.IsDefined('PROFILE') then begin
+    if not fShownWarning then begin
+      aServices.EmitHint('Profiling aspect used but PROFILE not defined, aspect will be ignored');
+    end;
+    fShownWarning := true;
+    exit;
+  end;
+
+  var lType := aServices.GetType('RemObjects.Profiler.RemObjectsProfiler');
   var lName := aMethod.Owner.Name+'.'+aMethod.Name;
   aMethod.SurroundMethodBody(
     new StandaloneStatement(new ProcValue(new TypeValue(lType), 'Enter', new DataValue(lName))),
