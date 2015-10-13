@@ -19,6 +19,7 @@ type
     class method AppDomainCurrentDomainProcessExit(sender: Object; e: EventArgs);
     const SubCallCount: Integer = 4;
   public
+    class method Reset; // sets all counters to 0
     class method Enter(aName: String);
     class method &Exit(aName: String);
   end;
@@ -181,6 +182,11 @@ begin
   end;
   fFW.Close;
   writeLn('Written profile data to '+fFN);
+end;
+
+class method RemObjectsProfiler.Reset;
+begin
+  fThreads.Clear;
 end;
 
 constructor SITuple(aKey: String; aInt: Integer);

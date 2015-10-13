@@ -46,7 +46,7 @@ uses
 //
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile('')]
-[assembly: AssemblyKeyName('')]
+[assembly: AssemblyKeyName('RemObjectsSoftware')]
 
 implementation
 
