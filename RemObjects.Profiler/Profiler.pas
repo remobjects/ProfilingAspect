@@ -14,11 +14,11 @@ type
     class var fFN: String;
     var fThreads: Dictionary<Integer, ThreadInfo> := new Dictionary<Int32,ThreadInfo>;
 
-    class method WriteData;
   protected
     class method AppDomainCurrentDomainProcessExit(sender: Object; e: EventArgs);
     const SubCallCount: Integer = 4;
   public
+    class method WriteData;
     class method Reset; // sets all counters to 0
     class method Enter(aName: String);
     class method &Exit(aName: String);
