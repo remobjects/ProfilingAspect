@@ -112,7 +112,7 @@ begin
   if lvData.SelectedItem = nil then
     SubData := nil
   else
-    SubData := fData:GetSubCalls(Methods(lvData.SelectedItem).id, SubOrder(cbSubOrder.SelectedIndex));
+    SubData := fData:GetSubCalls(Methods(lvData.SelectedItem).id, if cbThread.SelectedIndex <= 0 then -1 else Int32.Parse(cbThread.SelectedValue:ToString), SubOrder(cbSubOrder.SelectedIndex));
 end;
 
 method MainWindow.cbSubOrder_SelectionChanged(sender: Object; e: SelectionChangedEventArgs);

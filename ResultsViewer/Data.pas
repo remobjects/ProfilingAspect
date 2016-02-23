@@ -25,7 +25,7 @@ type
     property MaxTicks: Int64;
     property DataDict: Dictionary<Int64, Methods> read fDataDict;
     method GetData(aOrder: DataOrder; aNameFilter: String; aThread: nullable Integer): List<Methods>;
-    method GetSubCalls(aMethod: Int64; aOrder: SubOrder): List<SubCalls>;
+    method GetSubCalls(aMethod, aThread: Int64; aOrder: SubOrder): List<SubCalls>;
   end;
   Methods = public class
   private
@@ -33,9 +33,9 @@ type
   public
     constructor(aOwner: Data);
     property totalticksdisplay1: String read (totalticks* 1.0 / fOwner.MaxTicks).ToString("0.##%");
-    property totalticksdisplay2: String read totalticks.ToString();
+    property totalticksdisplay2: String read new TimeSpan(totalticks).TotalMilliseconds.ToString("N");
     property selfticksdisplay1: String read (selfticks* 1.0/ fOwner.MaxTicks).ToString("0.##%");
-    property selfticksdisplay2: String read selfticks.ToString();
+    property selfticksdisplay2: String read new TimeSpan(selfticks).TotalMilliseconds.ToString("N");
     property id: Int64;
     property thread: Integer;
     property count: Int64;
@@ -53,10 +53,11 @@ type
   public
     constructor(aOwner: Data);
     method CloneNegative: SubCalls;
+    property Thread: Integer read fOwner.DataDict[toid].thread;
     property totalticksdisplay1: String read (totalticks* 1.0 / fOwner.MaxTicks).ToString("0.##%");
-    property totalticksdisplay2: String read totalticks.ToString();
+    property totalticksdisplay2: String read new TimeSpan(totalticks).TotalMilliseconds.ToString("N");
     property selfticksdisplay1: String read (selfticks* 1.0/ fOwner.MaxTicks).ToString("0.##%");
-    property selfticksdisplay2: String read selfticks.ToString();
+    property selfticksdisplay2: String read new TimeSpan(selfticks).TotalMilliseconds.ToString("N");
     property name: String read 
       (if level < 0 then 'From: ' else 'To: ')+
       fOwner.DataDict[toid].name;
@@ -146,7 +147,7 @@ begin
   exit lTmp.ToList;
 end;
 
-method Data.GetSubCalls(aMethod: Int64; aOrder: SubOrder): List<SubCalls>;
+method Data.GetSubCalls(aMethod, aThread: Int64; aOrder: SubOrder): List<SubCalls>;
 begin
   var lTmp := fSubCalls.Where(a->a.fromid = aMethod);
   lTmp := lTmp.Concat(fSubCalls.Where(a->a.toid = aMethod).Select(a->a.CloneNegative));

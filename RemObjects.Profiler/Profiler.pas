@@ -79,8 +79,9 @@ class constructor RemObjectsProfiler;
 begin
   AppDomain.CurrentDomain.ProcessExit += AppDomainCurrentDomainProcessExit;
   System.Diagnostics.Stopwatch.GetTimestamp; // preload that
-  
-  fFN := &System.Reflection.Assembly.GetEntryAssembly().Location+'.results-'+DateTime.Now.ToString('yyyy-MM-ddHH-mm-ss')+'.log';
+  var lLoc := &System.Reflection.Assembly.GetEntryAssembly():Location;
+  if lLoc = nil then lLoc := 'test';
+  fFN := lLoc+'.results-'+DateTime.Now.ToString('yyyy-MM-ddHH-mm-ss')+'.log';
   fFW := new StreamWriter(File.Create(fFN), System.Text.Encoding.UTF8);
   fFW.WriteLine('');
 end;
@@ -100,7 +101,6 @@ begin
   var lMI: MethodInfo;
   if not lTI.Methods.TryGetValue(aName, out lMI) then begin 
     lMI := new MethodInfo;
-    lMI.PK := lTI.Methods.Count + 1;
     lMI.Name := aName;
     lTI.Methods.Add(aName, lMI);
   end;
@@ -180,6 +180,13 @@ class method RemObjectsProfiler.WriteData;
 begin
   fFW.WriteLine('create table methods (id integer primary key, thread integer, count integer, name text, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
   fFW.WriteLine('create table subcalls (fromid integer, toid integer, level integer, count integer, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
+  var nc := 0;
+  for each el in fThreads do begin 
+    for each m in el.Value.Methods do begin
+      Inc(nc);
+      m.Value.PK := nc;
+    end;
+  end;
   for each el in fThreads do begin 
     var lThread := el.Key;
     for each m in el.Value.Methods.Values  do begin 
