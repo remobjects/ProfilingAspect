@@ -11,8 +11,6 @@ type
   RemObjectsProfiler = public static class
   private
     constructor ;
-    var fFW: StreamWriter;
-    var fFN: String;
     var fThreads: Dictionary<Integer, ThreadInfo> := new Dictionary<Int32,ThreadInfo>;
   protected
     method AppDomainCurrentDomainProcessExit(sender: Object; e: EventArgs);
@@ -84,14 +82,7 @@ implementation
 constructor RemObjectsProfiler;
 begin
   AppDomain.CurrentDomain.ProcessExit += AppDomainCurrentDomainProcessExit;
-  System.Diagnostics.Stopwatch.GetTimestamp; // preload that
-  
-  var lLoc := LogFileBaseName;
-  if lLoc = nil then lLoc := &System.Reflection.Assembly.GetEntryAssembly():Location;
-  if lLoc = nil then lLoc := 'test';
-  fFN := lLoc+'.results-'+DateTime.Now.ToString('yyyy-MM-dd-HH-mm-ss')+'.log';
-  fFW := new StreamWriter(File.Create(fFN), System.Text.Encoding.UTF8);
-  fFW.WriteLine('');
+  System.Diagnostics.Stopwatch.GetTimestamp; // preload that  
 end;
 
 
@@ -186,26 +177,34 @@ end;
 
 method RemObjectsProfiler.WriteData;
 begin
-  fFW.WriteLine('create table methods (id integer primary key, thread integer, count integer, name text, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
-  fFW.WriteLine('create table subcalls (fromid integer, toid integer, level integer, count integer, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
-  var nc := 0;
-  for each el in fThreads do begin 
-    for each m in el.Value.Methods do begin
-      Inc(nc);
-      m.Value.PK := nc;
-    end;
-  end;
-  for each el in fThreads do begin 
-    var lThread := el.Key;
-    for each m in el.Value.Methods.Values  do begin 
-      fFW.WriteLine('insert into methods values ({0}, {1}, {2}, ''{3}'', {4}, {5}, {6},{7},{8},{9});', m.PK, lThread, m.Count, m.Name, m.TotalTicks, m.SelfTicks, m.MinTotalTicks, m.MaxTotalTicks, m.MinSelfTicks, m.MaxSelfTicks);
-      for each n in m.SubCalls do begin 
-        fFW.WriteLine('insert into subcalls values ({0}, {1}, {2}, {3}, {4}, {5}, {6},{7},{8},{9});', m.PK, n.Value.Method.PK, n.Key.Int, n.Value.Count, n.Value.TotalTicks, n.Value.SelfTicks, n.Value.MinTotalTicks, n.Value.MaxTotalTicks, n.Value.MinSelfTicks, n.Value.MaxSelfTicks);
+  var lFilename := LogFileBaseName;
+  if lFilename = nil then lFilename := &System.Reflection.Assembly.GetEntryAssembly():Location;
+  if lFilename = nil then lFilename := 'test';
+  lFilename := lFilename+'.results-'+DateTime.Now.ToString('yyyy-MM-dd-HH-mm-ss')+'.log';
+  
+  using lWriter := new StreamWriter(File.Create(lFilename), System.Text.Encoding.UTF8) do begin
+    lWriter.WriteLine('');
+    lWriter.WriteLine('create table methods (id integer primary key, thread integer, count integer, name text, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
+    lWriter.WriteLine('create table subcalls (fromid integer, toid integer, level integer, count integer, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
+    var nc := 0;
+    for each el in fThreads do begin 
+      for each m in el.Value.Methods do begin
+        Inc(nc);
+        m.Value.PK := nc;
       end;
     end;
+    for each el in fThreads do begin 
+      var lThread := el.Key;
+      for each m in el.Value.Methods.Values  do begin 
+        lWriter.WriteLine('insert into methods values ({0}, {1}, {2}, ''{3}'', {4}, {5}, {6},{7},{8},{9});', m.PK, lThread, m.Count, m.Name, m.TotalTicks, m.SelfTicks, m.MinTotalTicks, m.MaxTotalTicks, m.MinSelfTicks, m.MaxSelfTicks);
+        for each n in m.SubCalls do begin 
+          lWriter.WriteLine('insert into subcalls values ({0}, {1}, {2}, {3}, {4}, {5}, {6},{7},{8},{9});', m.PK, n.Value.Method.PK, n.Key.Int, n.Value.Count, n.Value.TotalTicks, n.Value.SelfTicks, n.Value.MinTotalTicks, n.Value.MaxTotalTicks, n.Value.MinSelfTicks, n.Value.MaxSelfTicks);
+        end;
+      end;
+    end;
+    lWriter.Close;
   end;
-  fFW.Close;
-  writeLn('Written profile data to '+fFN);
+  writeLn('Written profile data to '+lFilename);
 end;
 
 method RemObjectsProfiler.Reset;
