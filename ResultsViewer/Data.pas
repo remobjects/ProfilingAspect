@@ -13,6 +13,7 @@ type
   
   Data = public class
   private
+    class method SplitString(stringToSplit: String): array of String;
     class method FixLevelSort(aVal: Integer): Integer;
     fThreads: List<Integer> := new List<Int32>;
     fData: List<Methods> := new List<Methods>;
@@ -40,6 +41,7 @@ type
     property thread: Integer;
     property count: Int64;
     property name: String;
+    property &params: String;
     property totalticks: Int64;
     property selfticks: Int64;
     property mintotal: Int64;
@@ -61,6 +63,8 @@ type
     property name: String read 
       (if level < 0 then 'From: ' else 'To: ')+
       fOwner.DataDict[toid].name;
+    property &params: String read 
+      fOwner.DataDict[toid].params;
     property fromid: Int64;
     property toid: Int64;
     property level: Integer;
@@ -74,6 +78,38 @@ type
   end;
 
 implementation
+class method Data.SplitString(stringToSplit: String): array of String;
+begin
+  var characters: array of Char := stringToSplit.ToCharArray();
+  var returnValueList: List<String> := new List<String>();
+  var tempString: String := '';
+  var blockUntilEndQuote: Boolean := false;
+  var characterCount: Integer := 0;
+  for each character in characters do begin
+    characterCount := characterCount + 1;
+    if character = '''' then begin
+      blockUntilEndQuote := not blockUntilEndQuote;
+    end;
+    if character ≠ #44 then begin
+      tempString := tempString + character;
+    end
+    else begin
+      if (character = #44) and (blockUntilEndQuote = true) then begin
+        tempString := tempString + character;
+      end
+      else begin
+        returnValueList.Add(tempString);
+        tempString := '';
+      end;
+    end;
+    if characterCount = characters.Length then begin
+      returnValueList.Add(tempString);
+      tempString := '';
+    end;
+  end;
+  exit returnValueList.ToArray();
+end;
+
 
 constructor Data(aFilename: String);
 begin
@@ -86,14 +122,21 @@ begin
       if lLine.StartsWith('insert into methods') then begin
         lLine := lLine.Substring(lLine.IndexOf('(')+1);
         lLine := lLine.Substring(0, lLine.LastIndexOf(')'));
-        var lItems := lLine.Split([','], StringSplitOptions.RemoveEmptyEntries);
+        var lItems := SplitString(lLine);
         if lItems.Count <> 10 then raise new Exception('Methods not formatted in an expected way');
         for i: Integer := 0 to lItems.Count -1 do lItems[i] := lItems[i].Trim([' ', #39]);
+        var lName := lItems[3];
+        var lParams := '';
+        if lName.Contains('(') then begin 
+          lParams := lName.Substring(lName.IndexOf('('));
+          lName := lName.Substring(0, lName.IndexOf('('));
+        end;
         var lMethod := new Methods(self,
           id := Int64.Parse(lItems[0]), 
           thread := Int32.Parse(lItems[1]),
           count := Int64.Parse(lItems[2]),
-          name := lItems[3],
+          name := lName,
+          params := lParams,
           totalticks := Int64.Parse(lItems[4]),
           selfticks := Int64.Parse(lItems[5]),
           mintotal := Int64.Parse(lItems[6]),
@@ -107,7 +150,8 @@ begin
       if lLine.StartsWith('insert into subcalls') then begin
         lLine := lLine.Substring(lLine.IndexOf('(')+1);
         lLine := lLine.Substring(0, lLine.LastIndexOf(')'));
-        var lItems := lLine.Split([','], StringSplitOptions.RemoveEmptyEntries);
+        
+        var lItems := SplitString(lLine);
         if lItems.Count <> 10 then raise new Exception('Methods not formatted in an expected way');
         for i: Integer := 0 to lItems.Count -1 do lItems[i] := lItems[i].Trim([' ', #39]);
         fSubCalls.Add(new SubCalls(self,

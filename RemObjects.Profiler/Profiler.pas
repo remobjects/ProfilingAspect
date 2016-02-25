@@ -183,7 +183,7 @@ begin
   var nc := 0;
   for each el in fThreads do begin 
     for each m in el.Value.Methods do begin
-      Inc(nc);
+      inc(nc);
       m.Value.PK := nc;
     end;
   end;

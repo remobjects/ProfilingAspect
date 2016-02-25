@@ -32,7 +32,12 @@ begin
   end;
 
   var lType := aServices.GetType('RemObjects.Profiler.RemObjectsProfiler');
-  var lName := aMethod.Owner.Name+'.'+aMethod.Name;
+  var lName := aMethod.Owner.Name+'.'+aMethod.Name+'(';
+  for i: Integer := 0 to aMethod.ParameterCount -1 do begin
+    if i <> 0 then lName := lName+',';
+    lName := lName+ aMethod.GetParameter(i).Type.Fullname;
+  end;
+  lName := lName+')';
   aMethod.SurroundMethodBody(
     new StandaloneStatement(new ProcValue(new TypeValue(lType), 'Enter', new DataValue(lName))),
     new StandaloneStatement(new ProcValue(new TypeValue(lType), 'Exit', new DataValue(lName))),

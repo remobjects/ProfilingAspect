@@ -1,6 +1,6 @@
 ﻿
 <Window x:Class="ResultsViewer.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        Title="Profiling Results Viewer" Height="600" Width="900">
+        Title="Profiling Results Viewer" Height="600" Width="1100">
     <Window.Resources>
         <Style TargetType="ListViewItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -52,7 +52,8 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="Name" Width="360" DisplayMemberBinding="{Binding Path=name}"/>
+                        <GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding Path=name}"/>
+                        <GridViewColumn Header="Parameters" Width="320" DisplayMemberBinding="{Binding Path=params}"/>
                         <GridViewColumn Header="Thread" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -67,7 +68,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Total Ticks"  Width="130">
+                        <GridViewColumn Header="Total msec"  Width="130">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     
@@ -79,7 +80,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Ticks without children" Width="130" >
+                        <GridViewColumn Header="Msec without children" Width="130" >
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
 
@@ -108,7 +109,7 @@
             <Label Grid.Column="0">_Callers/Callees:</Label>
                 <ComboBox Grid.Column="2" x:Name="cbSubOrder" Width="200" SelectedIndex="0" SelectionChanged="cbSubOrder_SelectionChanged">
                     <ComboBoxItem>Level, Count</ComboBoxItem>
-                    <ComboBoxItem>Level Total Ticks</ComboBoxItem>
+                    <ComboBoxItem>Level Total Msec</ComboBoxItem>
                     <ComboBoxItem>Level, Ticks without Children</ComboBoxItem>
                 </ComboBox>
             </Grid>
@@ -116,7 +117,9 @@
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
-                            <GridViewColumn Header="Name" Width="360" DisplayMemberBinding="{Binding Path=name}"/>
+                            <GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding Path=name}"/>
+                            <GridViewColumn Header="Parameters" Width="320" DisplayMemberBinding="{Binding Path=params}"/>
+
                             <GridViewColumn Header="Level" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -131,7 +134,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Total Ticks"  Width="130">
+                            <GridViewColumn Header="Total msec"  Width="130">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
 
@@ -143,7 +146,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Header="Ticks without children" Width="130" >
+                            <GridViewColumn Header="Msec without children" Width="130" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
 
