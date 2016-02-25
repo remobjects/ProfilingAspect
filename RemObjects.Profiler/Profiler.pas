@@ -1,6 +1,7 @@
 ﻿namespace RemObjects.Profiler;
 
 interface
+
 uses
   System.Collections.Generic,
   System.IO,
@@ -9,26 +10,27 @@ uses
 type
   RemObjectsProfiler = public static class
   private
-    class constructor ;
-    class var fFW: StreamWriter;
-    class var fFN: String;
+    constructor ;
     var fThreads: Dictionary<Integer, ThreadInfo> := new Dictionary<Int32,ThreadInfo>;
-
   protected
-    class method AppDomainCurrentDomainProcessExit(sender: Object; e: EventArgs);
+    method AppDomainCurrentDomainProcessExit(sender: Object; e: EventArgs);
     const SubCallCount: Integer = 4;
   public
-    class method WriteData;
-    class method Reset; // sets all counters to 0
-    class method Enter(aName: String);
-    class method &Exit(aName: String);
+    method WriteData;
+    method Reset; // sets all counters to 0
+    method Enter(aName: String);
+    method &Exit(aName: String);
+    
+    property LogFileBaseName: String;
   end;
+  
   ThreadInfo = class(List<FrameInfo>)
   private
   public
     property Bias: Int64;
     property Methods: Dictionary<String, MethodInfo> := new Dictionary<String,MethodInfo>;
   end;
+  
   SITuple = class(IEquatable<SITuple>)
   public
     constructor(aKey: String; aInt: Integer);
@@ -38,6 +40,7 @@ type
     method &Equals(other: SITuple): Boolean;
     method GetHashCode: Integer; override;
   end;
+  
   MethodInfo = class
   public
     property PK: Integer;
@@ -52,6 +55,7 @@ type
     property MaxSelfTicks: Int64;
     property SubCalls: Dictionary<SITuple, SubCall> := new Dictionary<SITuple,SubCall>;
   end;
+  
   SubCall=  class
   public
     property &Method: MethodInfo;
@@ -75,19 +79,14 @@ type
 
 implementation
 
-class constructor RemObjectsProfiler;
+constructor RemObjectsProfiler;
 begin
   AppDomain.CurrentDomain.ProcessExit += AppDomainCurrentDomainProcessExit;
   System.Diagnostics.Stopwatch.GetTimestamp; // preload that
-  var lLoc := &System.Reflection.Assembly.GetEntryAssembly():Location;
-  if lLoc = nil then lLoc := 'test';
-  fFN := lLoc+'.results-'+DateTime.Now.ToString('yyyy-MM-ddHH-mm-ss')+'.log';
-  fFW := new StreamWriter(File.Create(fFN), System.Text.Encoding.UTF8);
-  fFW.WriteLine('');
 end;
 
 
-class method RemObjectsProfiler.Enter(aName: String);
+method RemObjectsProfiler.Enter(aName: String);
 begin
   var lStart := System.Diagnostics.Stopwatch.GetTimestamp;
   var lTID := Thread.CurrentThread.ManagedThreadId;
@@ -109,7 +108,7 @@ begin
   lTI.Bias := lTI.Bias + System.Diagnostics.Stopwatch.GetTimestamp - lStart;
 end;
 
-class method RemObjectsProfiler.&Exit(aName: String);
+method RemObjectsProfiler.&Exit(aName: String);
 begin
   var lStart := System.Diagnostics.Stopwatch.GetTimestamp;
   var lTID := Thread.CurrentThread.ManagedThreadId;
@@ -168,7 +167,7 @@ begin
   lTI.Bias := lTI.Bias + System.Diagnostics.Stopwatch.GetTimestamp - lStart;
 end;
 
-class method RemObjectsProfiler.AppDomainCurrentDomainProcessExit(sender: Object; e: EventArgs);
+method RemObjectsProfiler.AppDomainCurrentDomainProcessExit(sender: Object; e: EventArgs);
 begin
   try
   finally
@@ -176,10 +175,17 @@ begin
   end;
 end;
 
-class method RemObjectsProfiler.WriteData;
+method RemObjectsProfiler.WriteData;
 begin
-  fFW.WriteLine('create table methods (id integer primary key, thread integer, count integer, name text, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
-  fFW.WriteLine('create table subcalls (fromid integer, toid integer, level integer, count integer, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
+  var lFilename := LogFileBaseName;
+  if lFilename = nil then lFilename := &System.Reflection.Assembly.GetEntryAssembly():Location;
+  if lFilename = nil then lFilename := 'test';
+  lFilename := lFilename+'.results-'+DateTime.Now.ToString('yyyy-MM-dd-HH-mm-ss')+'.log';
+  
+  using lWriter := new StreamWriter(File.Create(lFilename), System.Text.Encoding.UTF8) do begin
+    lWriter.WriteLine('');
+    lWriter.WriteLine('create table methods (id integer primary key, thread integer, count integer, name text, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
+    lWriter.WriteLine('create table subcalls (fromid integer, toid integer, level integer, count integer, totalticks integer, selfticks integer, mintotal integer, maxtotal integer, minself integer, maxself integer);');
   var nc := 0;
   for each el in fThreads do begin 
     for each m in el.Value.Methods do begin
@@ -190,17 +196,18 @@ begin
   for each el in fThreads do begin 
     var lThread := el.Key;
     for each m in el.Value.Methods.Values  do begin 
-      fFW.WriteLine('insert into methods values ({0}, {1}, {2}, ''{3}'', {4}, {5}, {6},{7},{8},{9});', m.PK, lThread, m.Count, m.Name, m.TotalTicks, m.SelfTicks, m.MinTotalTicks, m.MaxTotalTicks, m.MinSelfTicks, m.MaxSelfTicks);
+        lWriter.WriteLine('insert into methods values ({0}, {1}, {2}, ''{3}'', {4}, {5}, {6},{7},{8},{9});', m.PK, lThread, m.Count, m.Name, m.TotalTicks, m.SelfTicks, m.MinTotalTicks, m.MaxTotalTicks, m.MinSelfTicks, m.MaxSelfTicks);
       for each n in m.SubCalls do begin 
-        fFW.WriteLine('insert into subcalls values ({0}, {1}, {2}, {3}, {4}, {5}, {6},{7},{8},{9});', m.PK, n.Value.Method.PK, n.Key.Int, n.Value.Count, n.Value.TotalTicks, n.Value.SelfTicks, n.Value.MinTotalTicks, n.Value.MaxTotalTicks, n.Value.MinSelfTicks, n.Value.MaxSelfTicks);
+          lWriter.WriteLine('insert into subcalls values ({0}, {1}, {2}, {3}, {4}, {5}, {6},{7},{8},{9});', m.PK, n.Value.Method.PK, n.Key.Int, n.Value.Count, n.Value.TotalTicks, n.Value.SelfTicks, n.Value.MinTotalTicks, n.Value.MaxTotalTicks, n.Value.MinSelfTicks, n.Value.MaxSelfTicks);
       end;
     end;
   end;
-  fFW.Close;
-  writeLn('Written profile data to '+fFN);
+    lWriter.Close;
+end;
+  writeLn('Written profile data to '+lFilename);
 end;
 
-class method RemObjectsProfiler.Reset;
+method RemObjectsProfiler.Reset;
 begin
   fThreads.Clear;
 end;
