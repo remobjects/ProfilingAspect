@@ -1,8 +1,6 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# RemObjects Fire
 Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler", "RemObjects.Profiler\RemObjects.Profiler.oxygene", "{A214B983-8B12-424B-A2D0-F39AAC624FC4}"
 EndProject
 Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler.Aspect", "RemObjects.Profiler.Aspect\RemObjects.Profiler.Aspect.oxygene", "{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}"
@@ -13,26 +11,24 @@ Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "Test", "Test\Test.hydrogene
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Mixed Platforms = Debug|Mixed Platforms
-		Release|Mixed Platforms = Release|Mixed Platforms
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Debug|Mixed Platforms.Build.0 = Debug
-		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|Mixed Platforms.ActiveCfg = Release
-		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|Mixed Platforms.Build.0 = Release
-		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Debug|Mixed Platforms.Build.0 = Debug
-		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Release|Mixed Platforms.ActiveCfg = Release
-		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Release|Mixed Platforms.Build.0 = Release
-		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Debug|Mixed Platforms.Build.0 = Debug
-		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Release|Mixed Platforms.ActiveCfg = Release
-		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Release|Mixed Platforms.Build.0 = Release
-		{FF54085C-9920-46B5-9CF9-770B524CF506}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{FF54085C-9920-46B5-9CF9-770B524CF506}.Debug|Mixed Platforms.Build.0 = Debug
-		{FF54085C-9920-46B5-9CF9-770B524CF506}.Release|Mixed Platforms.ActiveCfg = Release
-		{FF54085C-9920-46B5-9CF9-770B524CF506}.Release|Mixed Platforms.Build.0 = Release
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{FF54085C-9920-46B5-9CF9-770B524CF506}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{FF54085C-9920-46B5-9CF9-770B524CF506}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{FF54085C-9920-46B5-9CF9-770B524CF506}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{FF54085C-9920-46B5-9CF9-770B524CF506}.Release|AnyCPU.Build.0 = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
