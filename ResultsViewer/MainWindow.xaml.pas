@@ -21,12 +21,12 @@ type
     method cbThread_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
     method cbFilter_TextChanged(sender: System.Object; e: System.Windows.Controls.TextChangedEventArgs);
     method cbOrder_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
-    method cbSubOrder_SelectionChanged(sender: System.Object; e: System.Windows.Controls.SelectionChangedEventArgs);
+    method cbSubOrder_SelectionChanged(sender: Object; e: SelectionChangedEventArgs);
     fData: Data;
   private
     method FileExit_Click(sender: System.Object; e: System.Windows.RoutedEventArgs);
-    method FileOpen_Click(sender: System.Object; e: System.Windows.RoutedEventArgs);
-    method HelpAbout_Click(sender: System.Object; e: System.Windows.RoutedEventArgs);
+    method FileOpen_Click(sender: Object; e: RoutedEventArgs);
+    method HelpAbout_Click(sender: Object; e: RoutedEventArgs);
     method Refresh;
   public
     property CurrentData: List<Methods>; notify;
