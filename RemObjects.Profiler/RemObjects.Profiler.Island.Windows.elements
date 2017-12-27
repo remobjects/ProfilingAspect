@@ -4,8 +4,8 @@
     <ProductVersion>3.5</ProductVersion>
     <RootNamespace>RemObjects.Profiler</RootNamespace>
     <ProjectGuid>{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AssemblyName>RemObjects.Profiler</AssemblyName>
+    <OutputType>StaticLibrary</OutputType>
+    <AssemblyName>ElementsProfiler</AssemblyName>
     <AllowGlobals>False</AllowGlobals>
     <AllowLegacyWith>False</AllowLegacyWith>
     <AllowLegacyOutParams>False</AllowLegacyOutParams>
@@ -13,12 +13,7 @@
     <AllowUnsafeCode>False</AllowUnsafeCode>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <Name>RemObjects.Profiler</Name>
-    <DefaultUses />
-    <StartupClass />
-    <InternalAssemblyName />
-    <ApplicationIcon />
-    <TargetFrameworkProfile />
+    <Name>RemObjects.Profiler (Island.Windows)</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -56,10 +51,10 @@
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elements.fx">
+    <Reference Include="Elements">
       <HintPath>C:\Program Files (x86)\RemObjects Software\Elements\Island\Reference Libraries\Windows\i386\Elements.fx</HintPath>
     </Reference>
-    <Reference Include="gc.fx">
+    <Reference Include="gc">
       <HintPath>C:\Program Files (x86)\RemObjects Software\Elements\Island\Reference Libraries\Windows\i386\gc.fx</HintPath>
     </Reference>
     <Reference Include="rtl">

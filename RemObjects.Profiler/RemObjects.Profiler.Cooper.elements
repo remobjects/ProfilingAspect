@@ -5,7 +5,7 @@
     <RootNamespace>RemObjects.Profiler</RootNamespace>
     <ProjectGuid>{2E00CF07-659E-4A5C-BCE2-13650340CAD2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>RemObjects.Profiler</AssemblyName>
+    <AssemblyName>RemObjects.Elements.Profiler</AssemblyName>
     <AllowGlobals>False</AllowGlobals>
     <AllowLegacyWith>False</AllowLegacyWith>
     <AllowLegacyOutParams>False</AllowLegacyOutParams>
@@ -13,12 +13,7 @@
     <AllowUnsafeCode>False</AllowUnsafeCode>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <Name>RemObjects.Profiler</Name>
-    <DefaultUses />
-    <StartupClass />
-    <InternalAssemblyName />
-    <ApplicationIcon />
-    <TargetFrameworkProfile />
+    <Name>RemObjects.Profiler (Cooper)</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -56,10 +51,10 @@
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="cooper.jar">
+    <Reference Include="cooper">
       <Private>True</Private>
     </Reference>
-    <Reference Include="elements.jar">
+    <Reference Include="elements">
       <Private>True</Private>
     </Reference>
     <Reference Include="rt" />

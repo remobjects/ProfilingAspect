@@ -4,11 +4,11 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler.Echoes", "RemObjects.Profiler\RemObjects.Profiler.Echoes.elements", "{A214B983-8B12-424B-A2D0-F39AAC624FC4}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler.Aspect", "RemObjects.Profiler.Aspect\RemObjects.Profiler.Aspect.oxygene", "{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.ProfilerAspect.elements", "RemObjects.Profiler.Aspect\RemObjects.Elements.ProfilerAspect.elements", "{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "ResultsViewer", "ResultsViewer\ResultsViewer.oxygene", "{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "ResultsViewer", "ResultsViewer\ResultsViewer.elements", "{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "Test", "Test\Test.hydrogene", "{FF54085C-9920-46B5-9CF9-770B524CF506}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "Test", "Test\Test.elements", "{FF54085C-9920-46B5-9CF9-770B524CF506}"
 EndProject
 Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler.Cooper", "RemObjects.Profiler\RemObjects.Profiler.Cooper.elements", "{2E00CF07-659E-4A5C-BCE2-13650340CAD2}"
 EndProject

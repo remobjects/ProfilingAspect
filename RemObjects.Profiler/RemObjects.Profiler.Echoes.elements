@@ -5,20 +5,15 @@
     <RootNamespace>RemObjects.Profiler</RootNamespace>
     <ProjectGuid>{a214b983-8b12-424b-a2d0-f39aac624fc4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>RemObjects.Profiler</AssemblyName>
+    <AssemblyName>RemObjects.Elements.Profiler</AssemblyName>
     <AllowGlobals>False</AllowGlobals>
     <AllowLegacyWith>False</AllowLegacyWith>
     <AllowLegacyOutParams>False</AllowLegacyOutParams>
     <AllowLegacyCreate>False</AllowLegacyCreate>
     <AllowUnsafeCode>False</AllowUnsafeCode>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <Name>RemObjects.Profiler</Name>
-    <DefaultUses />
-    <StartupClass />
-    <InternalAssemblyName />
-    <ApplicationIcon />
-    <TargetFrameworkProfile />
+    <Name>RemObjects.Profiler (Echoes)</Name>
+    <TargetFramework>.NETFramework4.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -56,8 +51,7 @@
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elements">
-    </Reference>
+    <Reference Include="Elements"></Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Data" />

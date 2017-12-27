@@ -4,16 +4,17 @@
     <ProductVersion>3.5</ProductVersion>
     <RootNamespace>RemObjects.Profiler.Aspect</RootNamespace>
     <ProjectGuid>{0866c22b-00bd-425e-b47e-ad13f5cf5d2f}</ProjectGuid>
-    <OutputType>library</OutputType>
-    <AssemblyName>RemObjects.Profiler.Aspect</AssemblyName>
+    <OutputType>Library</OutputType>
+    <AssemblyName>RemObjects.Elements.Profiler.Aspect</AssemblyName>
     <AllowGlobals>False</AllowGlobals>
     <AllowLegacyWith>False</AllowLegacyWith>
     <AllowLegacyOutParams>False</AllowLegacyOutParams>
     <AllowLegacyCreate>False</AllowLegacyCreate>
     <AllowUnsafeCode>False</AllowUnsafeCode>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <Name>RemObjects.Profiler.Aspect</Name>
+    <TargetFramework>.NETFramework4.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -53,15 +54,8 @@
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
   </ItemGroup>

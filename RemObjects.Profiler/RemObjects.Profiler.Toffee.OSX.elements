@@ -4,8 +4,8 @@
     <ProductVersion>3.5</ProductVersion>
     <RootNamespace>RemObjects.Profiler</RootNamespace>
     <ProjectGuid>{F48A0C78-FCAF-4AE8-82FD-16836F676217}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AssemblyName>RemObjects.Profiler</AssemblyName>
+    <OutputType>StaticLibrary</OutputType>
+    <AssemblyName>ElementsProfiler</AssemblyName>
     <AllowGlobals>False</AllowGlobals>
     <AllowLegacyWith>False</AllowLegacyWith>
     <AllowLegacyOutParams>False</AllowLegacyOutParams>
@@ -13,13 +13,8 @@
     <AllowUnsafeCode>False</AllowUnsafeCode>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <Name>RemObjects.Profiler</Name>
+    <Name>RemObjects.Profiler (Toffee.macOS)</Name>
     <SDK>macOS</SDK>
-    <DefaultUses />
-    <StartupClass />
-    <InternalAssemblyName />
-    <ApplicationIcon />
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -57,11 +52,9 @@
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoreFoundation.fx" />
-    <Reference Include="libElements.fx">
-    </Reference>
-    <Reference Include="libToffee.fx">
-    </Reference>
+    <Reference Include="CoreFoundation" />
+    <Reference Include="libElements" />
+    <Reference Include="libToffee" />
     <Reference Include="rtl" />
     <Reference Include="Foundation" />
   </ItemGroup>

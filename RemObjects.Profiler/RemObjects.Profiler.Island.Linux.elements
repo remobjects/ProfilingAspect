@@ -4,8 +4,8 @@
     <ProductVersion>3.5</ProductVersion>
     <RootNamespace>RemObjects.Profiler</RootNamespace>
     <ProjectGuid>{D0A312C4-9809-43B8-BFFD-CD315C0A9434}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AssemblyName>RemObjects.Profiler</AssemblyName>
+    <OutputType>StaticLibrary</OutputType>
+    <AssemblyName>ElementsProfiler</AssemblyName>
     <AllowGlobals>False</AllowGlobals>
     <AllowLegacyWith>False</AllowLegacyWith>
     <AllowLegacyOutParams>False</AllowLegacyOutParams>
@@ -13,12 +13,7 @@
     <AllowUnsafeCode>False</AllowUnsafeCode>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <Name>RemObjects.Profiler</Name>
-    <DefaultUses />
-    <StartupClass />
-    <InternalAssemblyName />
-    <ApplicationIcon />
-    <TargetFrameworkProfile />
+    <Name>RemObjects.Profiler (Island.Linux)</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -56,14 +51,10 @@
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elements.fx">
-    </Reference>
-    <Reference Include="gc.fx">
-    </Reference>
-    <Reference Include="rtl">
-    </Reference>
-    <Reference Include="Island">
-    </Reference>
+    <Reference Include="Elements" />
+    <Reference Include="gc" />
+    <Reference Include="rtl" />
+    <Reference Include="Island" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Profiler.pas" />
