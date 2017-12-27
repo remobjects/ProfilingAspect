@@ -58,18 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Profiler.pas" />
-    <Compile Include="Properties\AssemblyInfo.pas" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.pas" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-    </None>
-    <Compile Include="Properties\Settings.Designer.pas" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.Island.Android.targets" />
 </Project>

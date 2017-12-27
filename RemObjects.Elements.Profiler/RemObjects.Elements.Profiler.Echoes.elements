@@ -51,7 +51,7 @@
     <WarnOnCaseMismatch>True</WarnOnCaseMismatch>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elements"></Reference>
+    <Reference Include="Elements" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,14 +60,6 @@
   <ItemGroup>
     <Compile Include="Profiler.pas" />
     <Compile Include="Properties\AssemblyInfo.pas" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.pas" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-    </None>
-    <Compile Include="Properties\Settings.Designer.pas" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -54,9 +54,7 @@
   <ItemGroup>
     <Compile Include="Profiler.pas" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <Reference Include="CoreFoundation" />
     <Reference Include="Foundation" />
