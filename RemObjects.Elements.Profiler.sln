@@ -1,21 +1,21 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # RemObjects Fire
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler (Cooper)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Cooper.elements", "{2E00CF07-659E-4A5C-BCE2-13650340CAD2}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler (Cooper)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Cooper.elements", "{2E00CF07-659E-4A5C-BCE2-13650340CAD2}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler (Echoes)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Echoes.elements", "{A214B983-8B12-424B-A2D0-F39AAC624FC4}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler (Echoes)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Echoes.elements", "{A214B983-8B12-424B-A2D0-F39AAC624FC4}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler (Island.Linux)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Island.Linux.elements", "{D0A312C4-9809-43B8-BFFD-CD315C0A9434}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler (Island.Android)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Island.Android.elements", "{DB99161F-6933-4585-9D29-029B78320326}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler (Island.Windows)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Island.Windows.elements", "{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler (Island.Linux)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Island.Linux.elements", "{D0A312C4-9809-43B8-BFFD-CD315C0A9434}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler (Island.Windows)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Island.Windows.elements", "{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler (Island.Windows)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Island.Windows.elements", "{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler (Toffee.iOS)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Toffee.iOS.elements", "{AAEB3167-DD15-4F3D-B08E-3C134CA8BCDC}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler (Toffee.iOS)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Toffee.iOS.elements", "{AAEB3167-DD15-4F3D-B08E-3C134CA8BCDC}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler (Toffee.macOS)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Toffee.macOS.elements", "{F48A0C78-FCAF-4AE8-82FD-16836F676217}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler (Toffee.macOS)", "RemObjects.Elements.Profiler\RemObjects.Elements.Profiler.Toffee.macOS.elements", "{F48A0C78-FCAF-4AE8-82FD-16836F676217}"
 EndProject
-Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Elements.Profiler.Aspect", "RemObjects.Elements.Profiler.Aspect\RemObjects.Elements.ProfilerAspect.elements", "{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}"
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "RemObjects.Profiler.Aspect", "RemObjects.Elements.Profiler.Aspect\RemObjects.Elements.ProfilerAspect.elements", "{0866C22B-00BD-425E-B47E-AD13F5CF5D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,14 @@ Global
 		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
 		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
 		{A214B983-8B12-424B-A2D0-F39AAC624FC4}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{DB99161F-6933-4585-9D29-029B78320326}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{DB99161F-6933-4585-9D29-029B78320326}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{DB99161F-6933-4585-9D29-029B78320326}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{DB99161F-6933-4585-9D29-029B78320326}.Release|AnyCPU.Build.0 = Release|AnyCPU
 		{D0A312C4-9809-43B8-BFFD-CD315C0A9434}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
 		{D0A312C4-9809-43B8-BFFD-CD315C0A9434}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
 		{D0A312C4-9809-43B8-BFFD-CD315C0A9434}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
 		{D0A312C4-9809-43B8-BFFD-CD315C0A9434}.Release|AnyCPU.Build.0 = Release|AnyCPU
-		{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
-		{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
-		{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
-		{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}.Release|AnyCPU.Build.0 = Release|AnyCPU
 		{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
 		{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
 		{3F6C1F6C-CB39-4833-B8C7-74A0EFB6D93F}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
