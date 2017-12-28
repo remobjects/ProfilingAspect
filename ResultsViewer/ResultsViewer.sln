@@ -1,0 +1,20 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# RemObjects Fire
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "ResultsViewer", "ResultsViewer.elements", "{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{FF16F7E8-49F8-4E65-898E-B0E2D4B6F5ED}.Release|AnyCPU.Build.0 = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

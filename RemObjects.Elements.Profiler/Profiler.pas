@@ -1,4 +1,4 @@
-﻿namespace RemObjects.Profiler;
+﻿namespace RemObjects.Elements.Profiler;
 
 interface
 
@@ -6,9 +6,9 @@ uses
   RemObjects.Elements.RTL;
 
 type
-  RemObjectsProfiler = public static class
+  Profiler = public static class
   private
-    constructor ;
+    constructor;
     var fLock: {$IFDEF ISLAND}Monitor{$ELSE}Object{$ENDIF} := new {$IFDEF ISLAND}Monitor{$ELSE}Object{$ENDIF};
     var fThreads: Dictionary<Integer, ThreadInfo> := new Dictionary<Int32,ThreadInfo>;
   protected
@@ -18,10 +18,10 @@ type
     method Reset; // sets all counters to 0
     method Enter(aName: String);
     method &Exit(aName: String);
-    
+
     property LogFileBaseName: String;
   end;
-  
+
   ThreadInfo = class
   private
   public
@@ -29,23 +29,24 @@ type
     property Bias: Int64;
     property Methods: Dictionary<String, MethodInfo> := new Dictionary<String,MethodInfo>;
   end;
-  
+
   SITuple = class(Object{$IFDEF ECHOES or ISLAND}, IEquatable<SITuple>{$ENDIF})
   public
-    constructor(aKey: String; aInt: Integer);
+    constructor (aKey: String; aInt: Integer);
     property Key: String; readonly;
     property Int: Integer;readonly;
+
     {$IFDEF ISLAND OR ECHOES}
     method &Equals(obj: Object): Boolean; override;
     begin
       exit Equals(SITuple(obj));
     end;
-    
+
     method &Equals(other: SITuple): Boolean;
     begin
       exit (other.Key = Key) and (other.Int = Int);
     end;
-    
+
     method GetHashCode: Integer; override;
     begin
       exit Key.GetHashCode xor Int;
@@ -55,7 +56,7 @@ type
     begin
       exit (other.Key = Key) and (other.Int = Int);
     end;
-    
+
     method hashCode: Integer; override;
     begin
       exit Key.hashCode xor Int;
@@ -65,20 +66,20 @@ type
     begin
       exit isEqual(SITuple(obj));
     end;
-    
+
     method isEqual(other: SITuple): Boolean;
     begin
       exit (other.Key = Key) and (other.Int = Int);
     end;
-    
+
     method hash: Foundation.NSUInteger; override;
     begin
       exit Key.hash xor Int;
     end;
     {$ENDIF}
-    
+
   end;
-  
+
   MethodInfo = class
   public
     property PK: Integer;
@@ -93,7 +94,7 @@ type
     property MaxSelfTicks: Int64;
     property SubCalls: Dictionary<SITuple, SubCall> := new Dictionary<SITuple,SubCall>;
   end;
-  
+
   SubCall=  class
   public
     property &Method: MethodInfo;
@@ -119,13 +120,13 @@ implementation
 
 {$IFDEF TOFFEE OR ISLAND}
 method __elements_write_data;
-begin 
-  RemObjectsProfiler.WriteData;
+begin
+  Profiler.WriteData;
 end;
 {$ENDIF}
 
 method GetTimestamp: Int64;
-begin 
+begin
   {$IFDEF ECHOES}
   exit System.Diagnostics.Stopwatch.GetTimestamp;
   {$else}
@@ -133,10 +134,10 @@ begin
   {$ENDIF}
 end;
 
-constructor RemObjectsProfiler;
+constructor Profiler;
 begin
   {$IFDEF ECHOES}
-    AppDomain.CurrentDomain.ProcessExit += (o, e) -> begin 
+    AppDomain.CurrentDomain.ProcessExit += (o, e) -> begin
       try
       finally
         WriteData;
@@ -155,7 +156,7 @@ begin
 end;
 
 
-method RemObjectsProfiler.Enter(aName: String);
+method Profiler.Enter(aName: String);
 begin
   var lStart := GetTimestamp;
   var lTID := {$IFDEF ISLAND}RemObjects.Elements.System.Thread.CurrentThreadID{$ELSE}Thread.CurrentThread.ThreadId{$ENDIF};
@@ -167,9 +168,9 @@ begin
       fThreads.Add(lTID, lTI);
     end;
   end;
-  
+
   var lMI: MethodInfo := lTI.Methods[aName];
-  if lMI = nil then begin 
+  if lMI = nil then begin
     lMI := new MethodInfo;
     lMI.Name := aName;
     lTI.Methods.Add(aName, lMI);
@@ -179,7 +180,7 @@ begin
   lTI.Bias := lTI.Bias + GetTimestamp - lStart;
 end;
 
-method RemObjectsProfiler.&Exit(aName: String);
+method Profiler.&Exit(aName: String);
 begin
   var lStart := GetTimestamp;
   var lTID := {$IFDEF ISLAND}RemObjects.Elements.System.Thread.CurrentThreadID{$ELSE}Thread.CurrentThread.ThreadId{$ENDIF};
@@ -194,9 +195,9 @@ begin
   var lLastE := lTI.Items[lTI.Items.Count -1];
   lTI.Items.RemoveAt(lTI.Items.Count-1);
   assert(lLastE.Method = aName);
-            
+
   var lTime := lStart - lTI.Bias - lLastE.StartTime;
-  if lTI.Items.Count > 0 then 
+  if lTI.Items.Count > 0 then
     lTI.Items[lTI.Items.Count -1].SubCallTime := lTI.Items[lTI.Items.Count -1].SubCallTime + lTime;
   var lMI := lTI.Methods[aName];
   lMI.Count := lMI.Count + 1;
@@ -240,14 +241,14 @@ begin
   lTI.Bias := lTI.Bias + GetTimestamp - lStart;
 end;
 
-method RemObjectsProfiler.WriteData;
+method Profiler.WriteData;
 begin
   var lFilename := LogFileBaseName;
   {$IFDEF ECHOES}if lFilename = nil then lFilename := &System.Reflection.Assembly.GetEntryAssembly():Location;{$ENDIF}
   if lFilename = nil then lFilename := 'test';
   var lDN := DateTime.UtcNow;
   lFilename := lFilename+'.results-'+lDN.Year+'-'+lDN.Month+'-'+lDN.Day+'-'+lDN.Hour+'-'+lDN.Minute+'-'+lDN.Second+'.log';
-  
+
   var lWriter := new StringBuilder;
   begin
     lWriter.AppendLine('');
@@ -268,13 +269,13 @@ begin
           lWriter.AppendFormat('insert into subcalls values ({0}, {1}, {2}, {3}, {4}, {5}, {6},{7},{8},{9});{10}', m.Value.PK, n.Value.Method.PK, n.Key.Int, n.Value.Count, n.Value.TotalTicks, n.Value.SelfTicks, n.Value.MinTotalTicks, n.Value.MaxTotalTicks, n.Value.MinSelfTicks, n.Value.MaxSelfTicks, Environment.LineBreak);
       end);
     end);
-  end); 
+  end);
   end;
   File.WriteText(lFilename, lWriter.ToString, Encoding.UTF8);
   writeLn('Written profile data to '+lFilename);
 end;
 
-method RemObjectsProfiler.Reset;
+method Profiler.Reset;
 begin
   fThreads.RemoveAll;
 end;

@@ -1,17 +1,19 @@
-﻿namespace RemObjects.Profiler;
+﻿namespace RemObjects.Elements.Profiler;
 
 interface
+
 uses
   RemObjects.Elements.Cirrus.*;
 
 type
   [AttributeUsage(AttributeTargets.Class or AttributeTargets.Method)]
   ProfileAspect = public class(IMethodImplementationDecorator)
+  private
     class var fShownWarning: Boolean;
   public
     method HandleImplementation(aServices: IServices; aMethod: IMethodDefinition);
   end;
-  
+
 implementation
 
 method ProfileAspect.HandleImplementation(aServices: IServices; aMethod: IMethodDefinition);
@@ -24,14 +26,13 @@ begin
   if aMethod.Name.StartsWith("add_") then exit;
   if aMethod.Name.StartsWith("remove_") then exit;
   if not aServices.IsDefined('PROFILE') then begin
-    if not fShownWarning then begin
+    if not fShownWarning then
       aServices.EmitHint('Profiling aspect used but PROFILE not defined, aspect will be ignored');
-    end;
     fShownWarning := true;
     exit;
   end;
 
-  var lType := aServices.GetType('RemObjects.Profiler.RemObjectsProfiler');
+  var lType := aServices.GetType('RemObjects.Elements.Profiler.Profiler');
   var lName := aMethod.Owner.Name+'.'+aMethod.Name+'(';
   for i: Integer := 0 to aMethod.ParameterCount -1 do begin
     if i <> 0 then lName := lName+',';
@@ -41,8 +42,7 @@ begin
   aMethod.SurroundMethodBody(
     new StandaloneStatement(new ProcValue(new TypeValue(lType), 'Enter', new DataValue(lName))),
     new StandaloneStatement(new ProcValue(new TypeValue(lType), 'Exit', new DataValue(lName))),
-    SurroundMethod.Always
-  );
+    SurroundMethod.Always);
 end;
 
 end.
