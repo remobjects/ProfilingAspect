@@ -30,11 +30,11 @@ type
     property Methods: Dictionary<String, MethodInfo> := new Dictionary<String,MethodInfo>;
   end;
 
-  SITuple = class(Object{$IFDEF ECHOES or ISLAND}, IEquatable<SITuple>{$ENDIF})
+  SITuple = class(Object{$IFDEF ECHOES or ISLAND}, IEquatable<SITuple>{$ELSEIF TOFFEE}INSCopying{$ENDIF})
   public
     constructor (aKey: String; aInt: Integer);
-    property Key: String; readonly;
-    property Int: Integer;readonly;
+    property Key: String read private write;
+    property Int: Integer read private write;
 
     {$IFDEF ISLAND OR ECHOES}
     method &Equals(obj: Object): Boolean; override;
@@ -75,6 +75,13 @@ type
     method hash: Foundation.NSUInteger; override;
     begin
       exit Key.hash xor Int;
+    end;
+
+    method copyWithZone(aZone: ^Foundation.NSZone): instancetype;
+    begin
+      result := new SITuple();
+      result.Key := Key;
+      result.Int := Int;
     end;
     {$ENDIF}
 
