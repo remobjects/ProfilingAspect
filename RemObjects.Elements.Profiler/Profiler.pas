@@ -8,9 +8,10 @@ uses
 type
   Profiler = public static class
   private
-    constructor;
     var fLock: {$IFDEF ISLAND}Monitor{$ELSE}Object{$ENDIF} := new {$IFDEF ISLAND}Monitor{$ELSE}Object{$ENDIF};
     var fThreads: Dictionary<Integer, ThreadInfo> := new Dictionary<Int32,ThreadInfo>;
+    constructor;
+    method GetDefaultFileName: String;
   protected
     const SubCallCount: Integer = 9;
   public
@@ -248,11 +249,19 @@ begin
   lTI.Bias := lTI.Bias + GetTimestamp - lStart;
 end;
 
+method Profiler.GetDefaultFileName: String;
+begin
+  const ELEMENTS_PROFILER_LOG_FILE = "ELEMENTS_PROFILER_LOG_FILE";
+  result := Environment.EnvironmentVariable[ELEMENTS_PROFILER_LOG_FILE];
+  if defined("TOFFEE") and not assigned(result) then
+    result := (Foundation.NSProcessInfo.processInfo.arguments.Where(s -> (s as String).StartsWith("--"+ELEMENTS_PROFILER_LOG_FILE+"=")).FirstOrDefault as String):Substring(3+length(ELEMENTS_PROFILER_LOG_FILE));
+  if defined("ECHOES") and not assigned(result) then
+    lFilename := &System.Reflection.Assembly.GetEntryAssembly():Location;
+end;
+
 method Profiler.WriteData;
 begin
-  var lFilename := LogFileBaseName;
-  {$IFDEF ECHOES}if lFilename = nil then lFilename := &System.Reflection.Assembly.GetEntryAssembly():Location;{$ENDIF}
-  if lFilename = nil then lFilename := 'test';
+  var lFilename := coalesce(LogFileBaseName, GetDefaultFileName, "app.profile");
   var lDN := DateTime.UtcNow;
   lFilename := lFilename+'.results-'+lDN.Year+'-'+lDN.Month+'-'+lDN.Day+'-'+lDN.Hour+'-'+lDN.Minute+'-'+lDN.Second+'.log';
 
