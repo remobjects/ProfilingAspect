@@ -256,7 +256,7 @@ begin
   if defined("TOFFEE") and not assigned(result) then
     result := (Foundation.NSProcessInfo.processInfo.arguments.Where(s -> (s as String).StartsWith("--"+ELEMENTS_PROFILER_LOG_FILE+"=")).FirstOrDefault as String):Substring(3+length(ELEMENTS_PROFILER_LOG_FILE));
   if defined("ECHOES") and not assigned(result) then
-    lFilename := &System.Reflection.Assembly.GetEntryAssembly():Location;
+    result := &System.Reflection.Assembly.GetEntryAssembly():Location;
 end;
 
 method Profiler.WriteData;
