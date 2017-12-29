@@ -262,8 +262,6 @@ end;
 method Profiler.WriteData;
 begin
   var lFilename := coalesce(LogFileBaseName, GetDefaultFileName, "app.profile");
-  var lDN := DateTime.UtcNow;
-  lFilename := lFilename+'.results-'+lDN.Year+'-'+lDN.Month+'-'+lDN.Day+'-'+lDN.Hour+'-'+lDN.Minute+'-'+lDN.Second+'.log';
 
   var lWriter := new StringBuilder;
   begin
@@ -288,7 +286,7 @@ begin
   end);
   end;
   File.WriteText(lFilename, lWriter.ToString, Encoding.UTF8);
-  writeLn('Written profile data to '+lFilename);
+  writeLn("Elements Profiler results have been saved to '"+lFilename+"'.");
 end;
 
 method Profiler.Reset;
