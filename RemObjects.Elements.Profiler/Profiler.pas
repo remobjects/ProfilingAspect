@@ -31,7 +31,7 @@ type
     property Methods: Dictionary<String, MethodInfo> := new Dictionary<String,MethodInfo>;
   end;
 
-  SITuple = class(Object{$IFDEF ECHOES or ISLAND}, IEquatable<SITuple>{$ELSEIF TOFFEE}INSCopying{$ENDIF})
+  SITuple = class(Object{$IFDEF ECHOES}, IEquatable<SITuple>{$ELSEIF TOFFEE}Foundation.INSCopying{$ENDIF})
   public
     constructor (aKey: String; aInt: Integer);
     property Key: String read private write;
