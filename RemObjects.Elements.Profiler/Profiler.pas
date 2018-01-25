@@ -78,7 +78,7 @@ type
       exit Key.hash xor Int;
     end;
 
-    method copyWithZone(aZone: ^Foundation.NSZone): not nullable instancetype;
+    method copyWithZone(aZone: ^Foundation.NSZone): not nullable id;
     begin
       result := new SITuple();
       result.Key := Key;
