@@ -78,7 +78,7 @@ type
       exit Key.hash xor Int;
     end;
 
-    method copyWithZone(aZone: ^Foundation.NSZone): not nullable id;
+    method copyWithZone(aZone: ^Foundation.NSZone): instancetype;
     begin
       result := new SITuple();
       result.Key := Key;
@@ -170,10 +170,10 @@ begin
   var lTID := {$IFDEF ISLAND}RemObjects.Elements.System.Thread.CurrentThreadID{$ELSE}Thread.CurrentThread.ThreadId{$ENDIF};
   var lTI: ThreadInfo;
   locking fLock do begin
-    lTI := fThreads[lTID];
+    lTI := fThreads[Integer(lTID)];
     if lTI = nil then begin
       lTI := new ThreadInfo;
-      fThreads.Add(lTID, lTI);
+      fThreads.Add(Integer(lTID), lTI);
     end;
   end;
 
@@ -194,10 +194,10 @@ begin
   var lTID := {$IFDEF ISLAND}RemObjects.Elements.System.Thread.CurrentThreadID{$ELSE}Thread.CurrentThread.ThreadId{$ENDIF};
   var lTI: ThreadInfo;
   locking fLock do begin
-    lTI := fThreads[lTID];
+    lTI := fThreads[Integer(lTID)];
     if lTI = nil then begin
       lTI := new ThreadInfo;
-      fThreads.Add(lTID, lTI);
+      fThreads.Add(Integer(lTID), lTI);
     end;
   end;
   var lLastE := lTI.Items[lTI.Items.Count -1];
