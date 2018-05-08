@@ -253,14 +253,10 @@ method Profiler.GetDefaultFileName: String;
 begin
   const ELEMENTS_PROFILER_LOG_FILE = "ELEMENTS_PROFILER_LOG_FILE";
   result := Environment.EnvironmentVariable[ELEMENTS_PROFILER_LOG_FILE];
-  if not assigned(result) then begin
-    if defined("TOFFEE") then
-      result := (Foundation.NSProcessInfo.processInfo.arguments.Where(s -> (s as String).StartsWith("--"+ELEMENTS_PROFILER_LOG_FILE+"=")).FirstOrDefault as String):Substring(3+length(ELEMENTS_PROFILER_LOG_FILE));
-    if defined("ECHOES") then
-      result := &System.Reflection.Assembly.GetEntryAssembly():Location;
-    var lDN := DateTime.UtcNow;
-    result := result+'.results-'+lDN.Year+'-'+lDN.Month+'-'+lDN.Day+'-'+lDN.Hour+'-'+lDN.Minute+'-'+lDN.Second+'.log';
-  end;
+  if defined("TOFFEE") and not assigned(result) then
+    result := (Foundation.NSProcessInfo.processInfo.arguments.Where(s -> (s as String).StartsWith("--"+ELEMENTS_PROFILER_LOG_FILE+"=")).FirstOrDefault as String):Substring(3+length(ELEMENTS_PROFILER_LOG_FILE));
+  if defined("ECHOES") and not assigned(result) then
+    result := &System.Reflection.Assembly.GetEntryAssembly():Location;
 end;
 
 method Profiler.WriteData;
