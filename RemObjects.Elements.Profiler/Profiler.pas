@@ -9,7 +9,7 @@ type
   Profiler = public static class
   private
     var fLock: {$IFDEF ISLAND}Monitor{$ELSE}Object{$ENDIF} := new {$IFDEF ISLAND}Monitor{$ELSE}Object{$ENDIF};
-    var fThreads: Dictionary<Integer, ThreadInfo> := new Dictionary<Int32,ThreadInfo>;
+    var fThreads: Dictionary<String, ThreadInfo> := new Dictionary<String,ThreadInfo>;
     constructor;
     method GetDefaultFileName: String;
   protected
@@ -170,10 +170,10 @@ begin
   var lTID := {$IFDEF ISLAND}RemObjects.Elements.System.Thread.CurrentThreadID{$ELSE}Thread.CurrentThread.ThreadId{$ENDIF};
   var lTI: ThreadInfo;
   locking fLock do begin
-    lTI := fThreads[Integer(lTID)];
+    lTI := fThreads[Integer(lTID).ToString];
     if lTI = nil then begin
       lTI := new ThreadInfo;
-      fThreads.Add(Integer(lTID), lTI);
+      fThreads.Add(Integer(lTID).ToString, lTI);
     end;
   end;
 
@@ -194,10 +194,10 @@ begin
   var lTID := {$IFDEF ISLAND}RemObjects.Elements.System.Thread.CurrentThreadID{$ELSE}Thread.CurrentThread.ThreadId{$ENDIF};
   var lTI: ThreadInfo;
   locking fLock do begin
-    lTI := fThreads[Integer(lTID)];
+    lTI := fThreads[Integer(lTID).ToString];
     if lTI = nil then begin
       lTI := new ThreadInfo;
-      fThreads.Add(Integer(lTID), lTI);
+      fThreads.Add(Integer(lTID).ToString, lTI);
     end;
   end;
   var lLastE := lTI.Items[lTI.Items.Count -1];
