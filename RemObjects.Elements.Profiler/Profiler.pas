@@ -183,7 +183,7 @@ begin
     lMI.Name := aName;
     lTI.Methods.Add(aName, lMI);
   end;
-  lTI.Items.Add(new FrameInfo(&method := aName, StartTime := lStart - lTI.Bias, Prev := if lTI.Items.Count = 0 then nil else lTI.Items[lTI.Items.Count-1]));
+  lTI.Items.Add(new FrameInfo(&Method := aName, StartTime := lStart - lTI.Bias, Prev := if lTI.Items.Count = 0 then nil else lTI.Items[lTI.Items.Count-1]));
 
   lTI.Bias := lTI.Bias + GetTimestamp - lStart;
 end;
